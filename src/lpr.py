@@ -12,7 +12,7 @@ def recognition(img):
         res = []
         rawres = hyperlpr.HyperLPR_plate_recognition(img)
         for i in rawres:
-            if (i[1] > 0.5):
+            if (i[1] > 0.8):
                 res.append(i[0])
         return res
     except Exception as e:
