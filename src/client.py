@@ -14,13 +14,19 @@ except:
 
 async def client():
     async with websockets.connect('ws://localhost:8000') as websocket:
-
+        await websocket.send("client A connected.")
+        lastres = []
         cap = cv2.VideoCapture(0)
         while True:
             ret, frame = cap.read()
+            # if you want to view image, enable line below
+            # cv2.imshow('cam', frame)
             res = lpr.recognition(frame)
-            msg = "%s %s" % (time.ctime(time.time()), res)
-            print(msg)
-            await websocket.send(msg)
+            cv2.waitKey(1)
+            if lastres != res:
+                msg = "%s %s" % (time.ctime(time.time()), res)
+                print(msg)
+                await websocket.send(msg)
+                lastres = res
 
 asyncio.get_event_loop().run_until_complete(client())

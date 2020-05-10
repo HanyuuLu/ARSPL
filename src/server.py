@@ -12,7 +12,7 @@ except:
 logger = logging.getLogger(__name__)
 formatter = logging.Formatter(
     '%(asctime)s %(levelname)-8s %(message)s', '%Y-%b-%d %H:%M:%S')
-file_handler = logging.FileHandler("ARSPL.log")
+file_handler = logging.FileHandler("ARSPL.log", encoding='utf8')
 file_handler.setFormatter(formatter)
 steam_handler = logging.StreamHandler(stream=sys.stdout)
 steam_handler.setFormatter(formatter)
