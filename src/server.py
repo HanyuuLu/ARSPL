@@ -24,9 +24,8 @@ PORT = 8000
 
 
 async def server(websocket, path):
-    while True:
-        message = await websocket.recv()
-        logger.info(message)
+    message = await websocket.recv()
+    logger.info(message)
 try:
     start_server = websockets.serve(server, ADDRESS, PORT)
     print("==== Automatic reporting system of parking lot Server ====")

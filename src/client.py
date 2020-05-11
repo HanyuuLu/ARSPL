@@ -13,17 +13,16 @@ except:
 
 
 async def client():
-    async with websockets.connect('ws://localhost:8000') as websocket:
-        await websocket.send("client A connected.")
-        lastres = []
-        cap = cv2.VideoCapture(0)
-        while True:
-            ret, frame = cap.read()
-            # if you want to view image, enable line below
-            # cv2.imshow('cam', frame)
-            res = lpr.recognition(frame)
-            cv2.waitKey(1)
-            if lastres != res:
+    lastres = []
+    cap = cv2.VideoCapture(0)
+    while True:
+        ret, frame = cap.read()
+        # if you want to view image, enable line below
+        # cv2.imshow('cam', frame)
+        res = lpr.recognition(frame)
+        cv2.waitKey(1)
+        if lastres != res:
+            async with websockets.connect('ws://localhost:8000') as websocket:
                 msg = "%s %s" % (time.ctime(time.time()), res)
                 print(msg)
                 await websocket.send(msg)
