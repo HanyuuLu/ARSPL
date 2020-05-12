@@ -1,9 +1,8 @@
+import lpr
 import asyncio
 import time
-
-
-import lpr
-
+ADDRESS = "TOKO"
+PORT = 8000
 try:
     import cv2.cv2 as cv2
     import websockets
@@ -22,7 +21,7 @@ async def client():
         res = lpr.recognition(frame)
         cv2.waitKey(1)
         if lastres != res:
-            async with websockets.connect('ws://localhost:8000') as websocket:
+            async with websockets.connect(f'ws://{ADDRESS}:{PORT}') as websocket:
                 msg = "%s %s" % (time.ctime(time.time()), res)
                 print(msg)
                 await websocket.send(msg)
