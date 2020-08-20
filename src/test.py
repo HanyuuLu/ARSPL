@@ -5,7 +5,7 @@ import requests
 CONNECTION_URL = "http://127.0.0.1:3000/update"
 
 
-def cc(msg: int):
+def upload(msg: int):
     print("a")
     t = time.time()
     r = requests.post(CONNECTION_URL, json={
@@ -15,5 +15,5 @@ def cc(msg: int):
 
 while True:
     a = 1
-    threading.Thread(target=cc, args=(a,)).start()
+    threading.Thread(target=upload, args=(a,)).start()
     time.sleep(5)
