@@ -1,15 +1,18 @@
-import lpr
-import requests
-import os
+import json
 import multiprocessing
+import os
 import threading
 import time
-import json
+
+import requests
+
+import lpr
 
 CONNECTION_URL = "http://127.0.0.1:3000/update"
 try:
     import cv2.cv2 as cv2
-except:
+except Exception as e:
+
     exit(1)
 
 CPU_COUNT = os.cpu_count()
@@ -20,7 +23,11 @@ REMAIN_EFFECITVE = 25
 
 
 def upload(msg: dict):
-    r = requests.post(CONNECTION_URL, json=msg)
+    try:
+        r = requests.post(CONNECTION_URL, json=msg)
+        print(f"[host feedback]{r}")
+    except Exception as e:
+        print("[error]network error")
 
 
 def process(i, frameQueue, resQueue):
